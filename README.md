@@ -4,6 +4,10 @@ Radu George-Mihai - SAL 410
 
 Project for Java course from uni.
 
+## Swagger
+
+Check [here](http://localhost:8080/swagger-ui/index.html#/)
+
 ## Business Requirements
 
 1. User Registration and Authentication:
