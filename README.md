@@ -70,7 +70,7 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
 ## Data model
 
 1. User:
-   - Attributes: Id, Username, Email, Password (hashed), CreatedAt, UpdatedAt, DeletedAt, IsAdmin 
+   - Attributes: Id, Username, Email, Password (hashed), Role, CreatedAt, UpdatedAt, DeletedAt 
    - Relationships:
      - Has one or more Orders
      - Writes zero to many Reviews
