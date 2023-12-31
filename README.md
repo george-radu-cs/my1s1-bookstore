@@ -11,38 +11,38 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
 ## Business Requirements
 
 1. User Registration and Authentication:
-   - Users should be able to register for an account.
-   - Users must be able to log in and log out of their accounts.
-   - The system must support admin accounts in addition to regular user accounts.
+   - [ ] Users should be able to register for an account.
+   - [ ] Users must be able to log in and log out of their accounts.
+   - [ ] The system must support admin accounts in addition to regular user accounts.
 2. Browse and Search:
-   - Users should be able to browse books by categories.
-   - The system must provide a search functionality for users to find specific books.
+   - [ ] Users should be able to browse books by categories.
+   - [ ] The system must provide a search functionality for users to find specific books.
 3. Product Listings:
-   - The platform must display detailed information about each book, including the title, author, price, and description.
-   - Users should be able to view book ratings and reviews.
+   - [ ] The platform must display detailed information about each book, including the title, author, price, and description.
+   - [ ] Users should be able to view book ratings and reviews.
 4. Shopping Cart and Checkout:
-   - Users must be able to add books to their shopping cart.
+   - [ ] Users must be able to add books to their shopping cart.
 5. Order Management:
-   - Users should have access to their order history.
-   - The order history must include the status of each order.
-   - Users must be able to cancel an order if it has not been shipped.
+   - [ ] Users should have access to their order history.
+   - [ ] The order history must include the status of each order.
+   - [ ] Users must be able to cancel an order if it has not been shipped.
 6. User Reviews and Ratings:
-   - Users should be able to leave reviews and ratings for books.
-   - The system must display average ratings for each book.
-   - Users should be able to edit or delete their reviews.
+   - [ ] Users should be able to leave reviews and ratings for books.
+   - [ ] The system must display average ratings for each book.
+   - [ ] Users should be able to edit or delete their reviews.
 7. Admin Panel:
-   - The admin panel must provide insights into user activities and sales.
-   - The admin panel must provide a way to manage books.
-   - The admin panel must provide a way to manage orders.
+   - [ ] The admin panel must provide insights into user activities and sales.
+   - [ ] The admin panel must provide a way to manage books.
+   - [ ] The admin panel must provide a way to manage orders.
 8. Performance:
-    - The system must be able to handle a large number of active users.
-    - The system must be able to handle a large number of orders.
+    - [ ] The system must be able to handle a large number of active users.
+    - [ ] The system must be able to handle a large number of orders.
 9. Security and Privacy:
-    - The system must ensure the security and privacy of user data.
+    - [ ] The system must ensure the security and privacy of user data.
 10. Reliability and Testing:
-    - The system must be highly reliable, ensuring minimal downtime and efficient error handling. 
-    - All critical components of the system must be thoroughly tested through unit tests, integration tests. 
-    - Test coverage should be maintained at a minimum of 90% for core functionalities. 
+    - [ ] The system must be highly reliable, ensuring minimal downtime and efficient error handling. 
+    - [ ] All critical components of the system must be thoroughly tested through unit tests, integration tests. 
+    - [ ] Test coverage should be maintained at a minimum of 90% for core functionalities. 
 
 ## MVP Features Document
 

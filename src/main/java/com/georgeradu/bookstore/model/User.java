@@ -1,19 +1,29 @@
 package com.georgeradu.bookstore.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "app_user")
-public class User {
+@Builder
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -27,15 +37,15 @@ public class User {
 
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date deletedAt;
+    private LocalDateTime deletedAt;
 
     public User() {
     }
@@ -45,11 +55,12 @@ public class User {
     }
 
     public User(
-            Long id, String username, String email, String password, UserRole role, Date createdAt, Date updatedAt,
-            Date deletedAt
+            Long id, String first_name, String last_name, String email, String password, UserRole role,
+            LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt
     ) {
         this.id = id;
-        this.username = username;
+        this.firstName = first_name;
+        this.lastName = last_name;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -57,6 +68,38 @@ public class User {
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
     }
+
+    @Override
+    public String getUsername() {
+        // our "username" for security is the email field
+        return email;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 
     public Long getId() {
         return id;
@@ -66,12 +109,20 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstName(String first_name) {
+        this.firstName = first_name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String last_name) {
+        this.lastName = last_name;
     }
 
     public String getEmail() {
@@ -98,27 +149,27 @@ public class User {
         this.role = role;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public Date getDeletedAt() {
+    public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(Date deletedAt) {
+    public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
     }
 
@@ -127,21 +178,22 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) &&
-               Objects.equals(email, user.email) && Objects.equals(password, user.password) && role == user.role &&
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) &&
+               Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) &&
+               Objects.equals(password, user.password) && role == user.role &&
                Objects.equals(createdAt, user.createdAt) && Objects.equals(updatedAt, user.updatedAt) &&
                Objects.equals(deletedAt, user.deletedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, email, password, role, createdAt, updatedAt, deletedAt);
+        return Objects.hash(id, firstName, lastName, email, password, role, createdAt, updatedAt, deletedAt);
     }
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username='" + username + '\'' + ", email='" + email + '\'' + ", password='" +
-               password + '\'' + ", role=" + role + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt +
-               ", deletedAt=" + deletedAt + '}';
+        return "User{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' +
+               ", email='" + email + '\'' + ", password='" + password + '\'' + ", role=" + role + ", createdAt=" +
+               createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + '}';
     }
 }

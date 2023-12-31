@@ -14,7 +14,8 @@ $$;
 CREATE TABLE IF NOT EXISTS app_user
 (
     id         bigserial    NOT NULL, -- bigserial is auto incrementing bigint
-    username   varchar(255) NOT NULL,
+    first_name varchar(255) NOT NULL,
+    last_name  varchar(255) NOT NULL,
     email      varchar(255) NOT NULL,
     password   varchar(255) NOT NULL,
     role       varchar(255) NOT NULL,
@@ -27,8 +28,7 @@ CREATE TABLE IF NOT EXISTS app_user
 
 -- make email and username unique for app_user table
 ALTER TABLE app_user
-    ADD CONSTRAINT unique_email UNIQUE (email),
-    ADD CONSTRAINT unique_username UNIQUE (username);
+    ADD CONSTRAINT unique_email UNIQUE (email);
 
 CREATE TABLE IF NOT EXISTS book_category
 (

@@ -2,7 +2,7 @@ package com.georgeradu.bookstore.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -28,15 +28,15 @@ public class OrderItem {
 
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date deletedAt;
+    private LocalDateTime deletedAt;
 
     public OrderItem() {
     }
@@ -46,8 +46,8 @@ public class OrderItem {
     }
 
     public OrderItem(
-            Long id, OrderInfo orderInfo, Book book, int quantity, double price, Date createdAt, Date updatedAt,
-            Date deletedAt
+            Long id, OrderInfo orderInfo, Book book, int quantity, double price, LocalDateTime createdAt,
+            LocalDateTime updatedAt, LocalDateTime deletedAt
     ) {
         this.id = id;
         this.orderInfo = orderInfo;
@@ -99,27 +99,27 @@ public class OrderItem {
         this.price = price;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public Date getDeletedAt() {
+    public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(Date deletedAt) {
+    public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
     }
 

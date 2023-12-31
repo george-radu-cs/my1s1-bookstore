@@ -2,7 +2,7 @@ package com.georgeradu.bookstore.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -37,7 +37,7 @@ public class Book {
     private String publisher;
 
     @Column(name = "publication_date", nullable = false)
-    private String publicationDate;
+    private String publicationLocalDateTime;
 
     @Column(name = "isbn10", nullable = false)
     private String isbn10;
@@ -57,15 +57,15 @@ public class Book {
 
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date deletedAt;
+    private LocalDateTime deletedAt;
 
     public Book() {
     }
@@ -76,8 +76,9 @@ public class Book {
 
     public Book(
             Long id, String title, String author, String description, double price, String imageUrl, int quantity,
-            String language, String publisher, String publicationDate, String isbn10, String isbn13, String dimensions,
-            double averageRating, BookCategory category, Date createdAt, Date updatedAt, Date deletedAt
+            String language, String publisher, String publicationLocalDateTime, String isbn10, String isbn13,
+            String dimensions, double averageRating, BookCategory category, LocalDateTime createdAt,
+            LocalDateTime updatedAt, LocalDateTime deletedAt
     ) {
         this.id = id;
         this.title = title;
@@ -88,7 +89,7 @@ public class Book {
         this.quantity = quantity;
         this.language = language;
         this.publisher = publisher;
-        this.publicationDate = publicationDate;
+        this.publicationLocalDateTime = publicationLocalDateTime;
         this.isbn10 = isbn10;
         this.isbn13 = isbn13;
         this.dimensions = dimensions;
@@ -171,12 +172,12 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getPublicationDate() {
-        return publicationDate;
+    public String getPublicationLocalDateTime() {
+        return publicationLocalDateTime;
     }
 
-    public void setPublicationDate(String publicationDate) {
-        this.publicationDate = publicationDate;
+    public void setPublicationLocalDateTime(String publicationLocalDateTime) {
+        this.publicationLocalDateTime = publicationLocalDateTime;
     }
 
     public String getIsbn10() {
@@ -219,27 +220,27 @@ public class Book {
         this.category = category;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public Date getDeletedAt() {
+    public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(Date deletedAt) {
+    public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
     }
 
@@ -253,25 +254,27 @@ public class Book {
                Objects.equals(title, book.title) && Objects.equals(author, book.author) &&
                Objects.equals(description, book.description) && Objects.equals(imageUrl, book.imageUrl) &&
                Objects.equals(language, book.language) && Objects.equals(publisher, book.publisher) &&
-               Objects.equals(publicationDate, book.publicationDate) && Objects.equals(isbn10, book.isbn10) &&
-               Objects.equals(isbn13, book.isbn13) && Objects.equals(dimensions, book.dimensions) &&
-               Objects.equals(category, book.category) && Objects.equals(createdAt, book.createdAt) &&
-               Objects.equals(updatedAt, book.updatedAt) && Objects.equals(deletedAt, book.deletedAt);
+               Objects.equals(publicationLocalDateTime, book.publicationLocalDateTime) &&
+               Objects.equals(isbn10, book.isbn10) && Objects.equals(isbn13, book.isbn13) &&
+               Objects.equals(dimensions, book.dimensions) && Objects.equals(category, book.category) &&
+               Objects.equals(createdAt, book.createdAt) && Objects.equals(updatedAt, book.updatedAt) &&
+               Objects.equals(deletedAt, book.deletedAt);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, title, author, description, price, imageUrl, quantity, language, publisher,
-                publicationDate, isbn10, isbn13, dimensions, averageRating, category, createdAt, updatedAt, deletedAt);
+                publicationLocalDateTime, isbn10, isbn13, dimensions, averageRating, category, createdAt, updatedAt,
+                deletedAt);
     }
 
     @Override
     public String toString() {
         return "Book{" + "id=" + id + ", title='" + title + '\'' + ", author='" + author + '\'' + ", description='" +
                description + '\'' + ", price=" + price + ", imageUrl='" + imageUrl + '\'' + ", quantity=" + quantity +
-               ", language='" + language + '\'' + ", publisher='" + publisher + '\'' + ", publicationDate='" +
-               publicationDate + '\'' + ", isbn10='" + isbn10 + '\'' + ", isbn13='" + isbn13 + '\'' + ", dimensions='" +
-               dimensions + '\'' + ", averageRating=" + averageRating + ", category=" + category + ", createdAt=" +
-               createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + '}';
+               ", language='" + language + '\'' + ", publisher='" + publisher + '\'' + ", publicationLocalDateTime='" +
+               publicationLocalDateTime + '\'' + ", isbn10='" + isbn10 + '\'' + ", isbn13='" + isbn13 + '\'' +
+               ", dimensions='" + dimensions + '\'' + ", averageRating=" + averageRating + ", category=" + category +
+               ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + '}';
     }
 }
