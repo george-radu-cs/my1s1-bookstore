@@ -52,9 +52,12 @@ public class AuthController {
     @Operation(summary = "Login a user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully logged in"),
-            @ApiResponse(responseCode = "400", description = "Invalid request body, validation failed"),
-            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "400", description = "Invalid request body, validation failed",
+                    content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
+            @ApiResponse(responseCode = "401", description = "Invalid credentials",
+                    content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
     })
     public JwtAuthenticationResponse login(@Validated @RequestBody LoginRequest request) throws InvalidLoginException {
         return authenticationService.login(request);
