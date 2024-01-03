@@ -15,6 +15,7 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
    - [x] Users must be able to log in and log out of their accounts.
    - [x] The system must support admin accounts in addition to regular user accounts.
 2. Browse and Search:
+   - [x] The system must provide a way for users see all book categories.
    - [ ] Users should be able to browse books by categories.
    - [ ] The system must provide a search functionality for users to find specific books.
 3. Product Listings:
@@ -32,6 +33,7 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
    - [ ] Users should be able to edit or delete their reviews.
 7. Admin Panel:
    - [ ] The admin panel must provide insights into user activities and sales.
+   - [x] The admin panel must provide a way to manage book categories.
    - [ ] The admin panel must provide a way to manage books.
    - [ ] The admin panel must provide a way to manage orders.
 8. Performance:

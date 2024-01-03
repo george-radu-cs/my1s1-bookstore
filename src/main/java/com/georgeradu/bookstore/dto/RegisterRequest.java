@@ -3,23 +3,24 @@ package com.georgeradu.bookstore.dto;
 
 import com.georgeradu.bookstore.validation.Password;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
 public class RegisterRequest {
-    @NotEmpty(message = "First name cannot be empty")
+    @NotBlank(message = "First name cannot be empty")
     @Size(min = 2, max = 255, message = "First name must be between 2 and 255 characters")
     private String firstName;
-    @NotEmpty(message = "Last name cannot be empty")
+    @NotBlank(message = "Last name cannot be empty")
     @Size(min = 2, max = 255, message = "Last name must be between 2 and 255 characters")
     private String lastName;
-    @NotEmpty(message = "Email cannot be empty")
+    @NotBlank(message = "Email cannot be empty")
     @Size(min = 5, max = 255, message = "Email must be between 5 and 255 characters")
     @Email(message = "Email must be valid")
     private String email;
-    @NotEmpty(message = "Password cannot be empty")
+    @NotBlank(message = "Password cannot be empty")
     @Size(min = 8, max = 255, message = "Password must be between 8 and 255 characters")
     @Password
     private String password;

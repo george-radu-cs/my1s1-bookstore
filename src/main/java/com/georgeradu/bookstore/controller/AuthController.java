@@ -59,7 +59,7 @@ public class AuthController {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
     })
-    public JwtAuthenticationResponse login(@Validated @RequestBody LoginRequest request) throws InvalidLoginException {
+    public JwtAuthenticationResponse login(@Valid @RequestBody LoginRequest request) throws InvalidLoginException {
         return authenticationService.login(request);
     }
 }
