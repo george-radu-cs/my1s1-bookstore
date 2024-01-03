@@ -54,6 +54,7 @@ public class BookCategoryService {
         bookCategory.setName(request.getName());
         bookCategory.setDescription(request.getDescription());
         bookCategory.setUpdatedAt(LocalDateTime.now());
+
         return bookCategoryRepository.save(bookCategory);
     }
 

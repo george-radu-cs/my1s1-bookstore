@@ -16,10 +16,10 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
    - [x] The system must support admin accounts in addition to regular user accounts.
 2. Browse and Search:
    - [x] The system must provide a way for users see all book categories.
-   - [ ] Users should be able to browse books by categories.
-   - [ ] The system must provide a search functionality for users to find specific books.
+   - [x] Users should be able to browse books by categories.
+   - [x] The system must provide a search functionality for users to find specific books.
 3. Product Listings:
-   - [ ] The platform must display detailed information about each book, including the title, author, price, and description.
+   - [x] The platform must display detailed information about each book, including the title, author, price, and description.
    - [ ] Users should be able to view book ratings and reviews.
 4. Shopping Cart and Checkout:
    - [ ] Users must be able to add books to their shopping cart.

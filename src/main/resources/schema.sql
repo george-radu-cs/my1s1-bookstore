@@ -57,7 +57,6 @@ CREATE TABLE IF NOT EXISTS book
     isbn10           varchar(255) NOT NULL,
     isbn13           varchar(255) NOT NULL,
     dimensions       varchar(255) NOT NULL,
-    average_rating   numeric      NOT NULL DEFAULT 0,
     category_id      bigint       NOT NULL,
     created_at       timestamp    NOT NULL,
     updated_at       timestamp    NOT NULL,

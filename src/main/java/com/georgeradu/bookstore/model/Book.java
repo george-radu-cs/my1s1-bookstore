@@ -37,7 +37,7 @@ public class Book {
     private String publisher;
 
     @Column(name = "publication_date", nullable = false)
-    private String publicationLocalDateTime;
+    private LocalDateTime publicationDate;
 
     @Column(name = "isbn10", nullable = false)
     private String isbn10;
@@ -47,9 +47,6 @@ public class Book {
 
     @Column(name = "dimensions", nullable = false)
     private String dimensions;
-
-    @Column(name = "average_rating", nullable = false)
-    private double averageRating;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -76,7 +73,7 @@ public class Book {
 
     public Book(
             Long id, String title, String author, String description, double price, String imageUrl, int quantity,
-            String language, String publisher, String publicationLocalDateTime, String isbn10, String isbn13,
+            String language, String publisher, LocalDateTime publicationDate, String isbn10, String isbn13,
             String dimensions, double averageRating, BookCategory category, LocalDateTime createdAt,
             LocalDateTime updatedAt, LocalDateTime deletedAt
     ) {
@@ -89,11 +86,10 @@ public class Book {
         this.quantity = quantity;
         this.language = language;
         this.publisher = publisher;
-        this.publicationLocalDateTime = publicationLocalDateTime;
+        this.publicationDate = publicationDate;
         this.isbn10 = isbn10;
         this.isbn13 = isbn13;
         this.dimensions = dimensions;
-        this.averageRating = averageRating;
         this.category = category;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -172,12 +168,12 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getPublicationLocalDateTime() {
-        return publicationLocalDateTime;
+    public LocalDateTime getPublicationDate() {
+        return publicationDate;
     }
 
-    public void setPublicationLocalDateTime(String publicationLocalDateTime) {
-        this.publicationLocalDateTime = publicationLocalDateTime;
+    public void setPublicationDate(LocalDateTime publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
     public String getIsbn10() {
@@ -202,14 +198,6 @@ public class Book {
 
     public void setDimensions(String dimensions) {
         this.dimensions = dimensions;
-    }
-
-    public double getAverageRating() {
-        return averageRating;
-    }
-
-    public void setAverageRating(double averageRating) {
-        this.averageRating = averageRating;
     }
 
     public BookCategory getCategory() {
@@ -249,23 +237,20 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Double.compare(price, book.price) == 0 && quantity == book.quantity &&
-               Double.compare(averageRating, book.averageRating) == 0 && Objects.equals(id, book.id) &&
+        return Double.compare(price, book.price) == 0 && quantity == book.quantity && Objects.equals(id, book.id) &&
                Objects.equals(title, book.title) && Objects.equals(author, book.author) &&
                Objects.equals(description, book.description) && Objects.equals(imageUrl, book.imageUrl) &&
                Objects.equals(language, book.language) && Objects.equals(publisher, book.publisher) &&
-               Objects.equals(publicationLocalDateTime, book.publicationLocalDateTime) &&
-               Objects.equals(isbn10, book.isbn10) && Objects.equals(isbn13, book.isbn13) &&
-               Objects.equals(dimensions, book.dimensions) && Objects.equals(category, book.category) &&
-               Objects.equals(createdAt, book.createdAt) && Objects.equals(updatedAt, book.updatedAt) &&
-               Objects.equals(deletedAt, book.deletedAt);
+               Objects.equals(publicationDate, book.publicationDate) && Objects.equals(isbn10, book.isbn10) &&
+               Objects.equals(isbn13, book.isbn13) && Objects.equals(dimensions, book.dimensions) &&
+               Objects.equals(category, book.category) && Objects.equals(createdAt, book.createdAt) &&
+               Objects.equals(updatedAt, book.updatedAt) && Objects.equals(deletedAt, book.deletedAt);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, title, author, description, price, imageUrl, quantity, language, publisher,
-                publicationLocalDateTime, isbn10, isbn13, dimensions, averageRating, category, createdAt, updatedAt,
-                deletedAt);
+                publicationDate, isbn10, isbn13, dimensions, category, createdAt, updatedAt, deletedAt);
     }
 
     @Override
@@ -273,8 +258,8 @@ public class Book {
         return "Book{" + "id=" + id + ", title='" + title + '\'' + ", author='" + author + '\'' + ", description='" +
                description + '\'' + ", price=" + price + ", imageUrl='" + imageUrl + '\'' + ", quantity=" + quantity +
                ", language='" + language + '\'' + ", publisher='" + publisher + '\'' + ", publicationLocalDateTime='" +
-               publicationLocalDateTime + '\'' + ", isbn10='" + isbn10 + '\'' + ", isbn13='" + isbn13 + '\'' +
-               ", dimensions='" + dimensions + '\'' + ", averageRating=" + averageRating + ", category=" + category +
-               ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + '}';
+               publicationDate + '\'' + ", isbn10='" + isbn10 + '\'' + ", isbn13='" + isbn13 + '\'' + ", dimensions='" +
+               dimensions + '\'' + ", category=" + category + ", createdAt=" +
+               createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + '}';
     }
 }
