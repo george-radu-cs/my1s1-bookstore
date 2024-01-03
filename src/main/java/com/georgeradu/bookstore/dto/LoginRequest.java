@@ -1,9 +1,18 @@
 package com.georgeradu.bookstore.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 import java.util.Objects;
 
 public class LoginRequest {
+    @NotEmpty(message = "Email cannot be empty")
+    @Size(min = 5, max = 255, message = "Email must be between 5 and 255 characters")
+    @Email(message = "Email must be valid")
     private String email;
+    @NotEmpty(message = "Password cannot be empty")
+    @Size(min = 8, max = 255, message = "Password must be between 8 and 255 characters")
     private String password;
 
     public LoginRequest() {

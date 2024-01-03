@@ -1,6 +1,6 @@
 package com.georgeradu.bookstore.services;
 
-import com.georgeradu.bookstore.exception.DuplicateObjectException;
+import com.georgeradu.bookstore.exception.UserAlreadyExistsException;
 import com.georgeradu.bookstore.model.User;
 import com.georgeradu.bookstore.model.UserRole;
 import com.georgeradu.bookstore.repository.UserRepository;
@@ -62,8 +62,8 @@ public class UserServiceTest {
         }
 
         @Test
-        @DisplayName("Should throw DuplicateObjectException when user with email already exists")
-        void test_addUser_shouldThrowDuplicateObjectExceptionWhenUserWithEmailAlreadyExists() {
+        @DisplayName("Should throw UserAlreadyExistsException when user with email already exists")
+        void test_addUser_shouldThrowUserAlreadyExistsExceptionWhenUserWithEmailAlreadyExists() {
             // Arrange
             User user = new User();
             user.setFirstName("firstNameValue");
@@ -75,7 +75,7 @@ public class UserServiceTest {
             when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
             // Assert
-            DuplicateObjectException actualException = Assertions.assertThrows(DuplicateObjectException.class,
+            UserAlreadyExistsException actualException = Assertions.assertThrows(UserAlreadyExistsException.class,
                     () -> userService.addUser(user));
             Assertions.assertEquals("Object: User with email " + user.getEmail() + " already exists",
                     actualException.getMessage());

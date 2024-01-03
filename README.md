@@ -11,9 +11,9 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
 ## Business Requirements
 
 1. User Registration and Authentication:
-   - [ ] Users should be able to register for an account.
-   - [ ] Users must be able to log in and log out of their accounts.
-   - [ ] The system must support admin accounts in addition to regular user accounts.
+   - [x] Users should be able to register for an account.
+   - [x] Users must be able to log in and log out of their accounts.
+   - [x] The system must support admin accounts in addition to regular user accounts.
 2. Browse and Search:
    - [ ] Users should be able to browse books by categories.
    - [ ] The system must provide a search functionality for users to find specific books.
@@ -68,6 +68,9 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
    - Retrieve average ratings for each book.
 
 ## Data model
+
+An idea about the schema
+Check [schema.sql](src/main/resources/schema.sql) for the full schema.
 
 1. User:
    - Attributes: Id, Username, Email, Password (hashed), Role, CreatedAt, UpdatedAt, DeletedAt 

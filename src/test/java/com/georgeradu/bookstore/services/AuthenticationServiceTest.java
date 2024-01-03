@@ -2,7 +2,7 @@ package com.georgeradu.bookstore.services;
 
 import com.georgeradu.bookstore.dto.LoginRequest;
 import com.georgeradu.bookstore.dto.RegisterRequest;
-import com.georgeradu.bookstore.exception.DuplicateObjectException;
+import com.georgeradu.bookstore.exception.UserAlreadyExistsException;
 import com.georgeradu.bookstore.exception.InvalidLoginException;
 import com.georgeradu.bookstore.model.User;
 import com.georgeradu.bookstore.repository.UserRepository;
@@ -79,10 +79,10 @@ public class AuthenticationServiceTest {
 
             // Act
             when(userService.addUser(any())).thenThrow(
-                    new DuplicateObjectException("User with email " + registerRequest.getEmail()));
+                    new UserAlreadyExistsException("User with email " + registerRequest.getEmail()));
 
             // Assert
-            DuplicateObjectException actualException = Assertions.assertThrows(DuplicateObjectException.class,
+            UserAlreadyExistsException actualException = Assertions.assertThrows(UserAlreadyExistsException.class,
                     () -> authenticationService.register(registerRequest));
             Assertions.assertEquals("Object: User with email " + registerRequest.getEmail() + " already exists",
                     actualException.getMessage());

@@ -3,8 +3,8 @@ package com.georgeradu.bookstore.service;
 import com.georgeradu.bookstore.dto.JwtAuthenticationResponse;
 import com.georgeradu.bookstore.dto.LoginRequest;
 import com.georgeradu.bookstore.dto.RegisterRequest;
-import com.georgeradu.bookstore.exception.DuplicateObjectException;
 import com.georgeradu.bookstore.exception.InvalidLoginException;
+import com.georgeradu.bookstore.exception.UserAlreadyExistsException;
 import com.georgeradu.bookstore.model.User;
 import com.georgeradu.bookstore.model.UserRole;
 import com.georgeradu.bookstore.repository.UserRepository;
@@ -32,7 +32,7 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    public JwtAuthenticationResponse register(RegisterRequest request) throws DuplicateObjectException {
+    public JwtAuthenticationResponse register(RegisterRequest request) throws UserAlreadyExistsException {
         var user = User
                 .builder()
                 .firstName(request.getFirstName())

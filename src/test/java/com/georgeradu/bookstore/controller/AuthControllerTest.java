@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.georgeradu.bookstore.dto.JwtAuthenticationResponse;
 import com.georgeradu.bookstore.dto.LoginRequest;
 import com.georgeradu.bookstore.dto.RegisterRequest;
-import com.georgeradu.bookstore.exception.DuplicateObjectException;
+import com.georgeradu.bookstore.exception.UserAlreadyExistsException;
 import com.georgeradu.bookstore.exception.InvalidLoginException;
 import com.georgeradu.bookstore.service.AuthenticationService;
 import org.junit.jupiter.api.*;
@@ -47,8 +47,8 @@ public class AuthControllerTest {
             RegisterRequest registerRequest = new RegisterRequest();
             registerRequest.setFirstName("firstNameValue");
             registerRequest.setLastName("lastNameValue");
-            registerRequest.setEmail("emailValue");
-            registerRequest.setPassword("passwordValue");
+            registerRequest.setEmail("valid@email.com");
+            registerRequest.setPassword("passwordValue123!@#");
 
             // Act
             when(authenticationService.register(registerRequest)).thenReturn(
@@ -72,21 +72,21 @@ public class AuthControllerTest {
             RegisterRequest registerRequest = new RegisterRequest();
             registerRequest.setFirstName("firstNameValue");
             registerRequest.setLastName("lastNameValue");
-            registerRequest.setEmail("emailValue");
-            registerRequest.setPassword("passwordValue");
+            registerRequest.setEmail("valid@email.com");
+            registerRequest.setPassword("passwordValue123!@#");
 
             // Act - assume the user already exists
             when(authenticationService.register(registerRequest)).thenThrow(
-                    new DuplicateObjectException("User with email " + registerRequest.getEmail()));
+                    new UserAlreadyExistsException("User with email " + registerRequest.getEmail()));
 
             // Assert
             mockMvc
                     .perform(post("/auth/register")
                             .contentType("application/json")
                             .content(objectMapper.writeValueAsString(registerRequest)))
-                    .andExpect(status().isBadRequest())
+                    .andExpect(status().isConflict())
                     .andExpect(result -> Assertions.assertTrue(
-                            result.getResolvedException() instanceof DuplicateObjectException))
+                            result.getResolvedException() instanceof UserAlreadyExistsException))
                     .andExpect(result -> Assertions.assertEquals(
                             "Object: User with email " + registerRequest.getEmail() + " already exists",
                             result.getResolvedException().getMessage()));
@@ -101,8 +101,8 @@ public class AuthControllerTest {
         void test_register_shouldLoginUser() throws Exception {
             // Arrange
             LoginRequest loginRequest = new LoginRequest();
-            loginRequest.setEmail("emailValue");
-            loginRequest.setPassword("passwordValue");
+            loginRequest.setEmail("valid@email.com");
+            loginRequest.setPassword("passwordValue123!@#");
 
             // Act
             when(authenticationService.login(loginRequest)).thenReturn(new JwtAuthenticationResponse("tokenValue"));
@@ -123,8 +123,8 @@ public class AuthControllerTest {
         void test_register_shouldFailToLoginInvalidUser() throws Exception {
             // Arrange
             LoginRequest loginRequest = new LoginRequest();
-            loginRequest.setEmail("emailValue");
-            loginRequest.setPassword("passwordValue");
+            loginRequest.setEmail("valid@email.com");
+            loginRequest.setPassword("passwordValue123!@#");
 
             // Act
             when(authenticationService.login(loginRequest)).thenThrow(new InvalidLoginException());
