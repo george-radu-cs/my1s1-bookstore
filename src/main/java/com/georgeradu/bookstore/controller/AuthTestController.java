@@ -1,8 +1,6 @@
 package com.georgeradu.bookstore.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +16,6 @@ public class AuthTestController {
     @GetMapping("/anyone")
     public String anyoneEndpoint() {
         // fetch the logged user info
-        var loggedUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(loggedUser.getUsername());
         return "anyone can see this";
     }
 

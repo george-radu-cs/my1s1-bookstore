@@ -1,5 +1,6 @@
 package com.georgeradu.bookstore.service;
 
+import com.georgeradu.bookstore.exception.EntityNotFoundException;
 import com.georgeradu.bookstore.exception.UserAlreadyExistsException;
 import com.georgeradu.bookstore.model.User;
 import com.georgeradu.bookstore.repository.UserRepository;
@@ -15,6 +16,18 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public User getUser(Long id) throws EntityNotFoundException {
+        return userRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+    }
+
+    public User getUserByEmail(String userEmail) throws EntityNotFoundException {
+        return userRepository
+                .findByEmail(userEmail)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+    }
+
     public User addUser(User user) throws UserAlreadyExistsException {
         var timestamp = LocalDateTime.now();
         user.setCreatedAt(timestamp);
@@ -27,4 +40,5 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
 }

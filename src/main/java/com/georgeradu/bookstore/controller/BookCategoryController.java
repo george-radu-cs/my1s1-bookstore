@@ -64,7 +64,7 @@ public class BookCategoryController {
             @ApiResponse(responseCode = "200", description = "Successfully created book category"),
             @ApiResponse(responseCode = "400", description = "Invalid request body, validation failed",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
-            @ApiResponse(responseCode = "403", description = "Unauthorized",
+            @ApiResponse(responseCode = "403", description = "Forbidden",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
             @ApiResponse(responseCode = "409", description = "Book category already exists",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
@@ -85,7 +85,7 @@ public class BookCategoryController {
             @ApiResponse(responseCode = "200", description = "Successfully updated book category"),
             @ApiResponse(responseCode = "400", description = "Invalid request body, validation failed",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
-            @ApiResponse(responseCode = "403", description = "Unauthorized",
+            @ApiResponse(responseCode = "403", description = "Forbidden",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
             @ApiResponse(responseCode = "404", description = "Book category not found",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
@@ -105,7 +105,7 @@ public class BookCategoryController {
     @Operation(summary = "Delete a book category")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully deleted book category"),
-            @ApiResponse(responseCode = "403", description = "Unauthorized",
+            @ApiResponse(responseCode = "403", description = "Forbidden",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
             @ApiResponse(responseCode = "404", description = "Book category not found",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),

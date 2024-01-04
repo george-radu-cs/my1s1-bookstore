@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "book_review")
-public class BookReview {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,14 +38,14 @@ public class BookReview {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
 
-    public BookReview() {
+    public Review() {
     }
 
-    public BookReview(Long id) {
+    public Review(Long id) {
         this.id = id;
     }
 
-    public BookReview(
+    public Review(
             Long id, Book book, User user, int rating, String comment, LocalDateTime createdAt, LocalDateTime updatedAt,
             LocalDateTime deletedAt
     ) {
@@ -127,7 +127,7 @@ public class BookReview {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BookReview that = (BookReview) o;
+        Review that = (Review) o;
         return rating == that.rating && Objects.equals(id, that.id) && Objects.equals(book, that.book) &&
                Objects.equals(user, that.user) && Objects.equals(comment, that.comment) &&
                Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) &&
