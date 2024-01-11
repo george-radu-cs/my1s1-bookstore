@@ -23,13 +23,13 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
    - [ ] Users should be able to view book ratings and reviews.
 4. Shopping Cart and Checkout:
    - [ ] Users must be able to add books to their shopping cart.
+   - [ ] User should be able to update the quantity of books in their shopping cart.
 5. Order Management:
    - [ ] Users should have access to their order history.
-   - [ ] The order history must include the status of each order.
-   - [ ] Users must be able to cancel an order if it has not been shipped.
+   - [ ] The admin role should be able to set when the order is finished.
+   - [ ] The admin should be able to see users' order history.
 6. User Reviews and Ratings:
    - [ ] Users should be able to leave reviews and ratings for books.
-   - [ ] The system must display average ratings for each book.
    - [ ] Users should be able to edit or delete their reviews.
 7. Admin Panel:
    - [ ] The admin panel must provide insights into user activities and sales.
@@ -63,7 +63,7 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
 4. OrderController:
    - Manages user orders. 
    - Retrieve order history for a user.
-   - Cancel an order if it has not been shipped.
+   - Mark an order as delivered by an admin.
 5. ReviewController:
    - Handles user reviews and ratings. 
    - Allow users to submit reviews and ratings for books. 
