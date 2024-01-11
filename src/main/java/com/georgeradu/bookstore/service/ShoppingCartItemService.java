@@ -1,6 +1,7 @@
 package com.georgeradu.bookstore.service;
 
 import com.georgeradu.bookstore.dto.ShoppingCartItemRequest;
+import com.georgeradu.bookstore.exception.DuplicateObjectException;
 import com.georgeradu.bookstore.exception.InvalidUserAccessException;
 import com.georgeradu.bookstore.model.ShoppingCartItem;
 import com.georgeradu.bookstore.repository.ShoppingCartItemRepository;
@@ -37,6 +38,12 @@ public class ShoppingCartItemService {
     public ShoppingCartItem addBookToShoppingCart(String userEmail, ShoppingCartItemRequest request) {
         var user = userService.getUserByEmail(userEmail);
         var book = bookService.getBook(request.getBookId());
+
+        var existentShoppingCartItem = shoppingCartItemRepository.findByUserIdAndBookId(user.getId(), book.getId());
+        if (existentShoppingCartItem.isPresent()) {
+            throw new DuplicateObjectException(
+                    "User " + user.getId() + " already has book " + book.getId() + " in their shopping cart");
+        }
 
         var shoppingCartItem = new ShoppingCartItem();
         shoppingCartItem.setUser(user);

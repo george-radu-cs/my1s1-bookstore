@@ -20,27 +20,28 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
    - [x] The system must provide a search functionality for users to find specific books.
 3. Product Listings:
    - [x] The platform must display detailed information about each book, including the title, author, price, and description.
-   - [ ] Users should be able to view book ratings and reviews.
+   - [x] Users should be able to view book ratings and reviews.
 4. Shopping Cart and Checkout:
-   - [ ] Users must be able to add books to their shopping cart.
-   - [ ] User should be able to update the quantity of books in their shopping cart.
+   - [x] Users must be able to add books to their shopping cart.
+   - [x] User should be able to update the quantity of books in their shopping cart.
 5. Order Management:
-   - [ ] Users should have access to their order history.
-   - [ ] The admin role should be able to set when the order is finished.
-   - [ ] The admin should be able to see users' order history.
+   - [x] Users should have access to their order history.
+   - [x] The admin role should be able to set when the order is finished.
+   - [x] The user should be able to cancel an order not delivered yet.
+   - [x] The admin should be able to see users' order history.
 6. User Reviews and Ratings:
-   - [ ] Users should be able to leave reviews and ratings for books.
-   - [ ] Users should be able to edit or delete their reviews.
+   - [x] Users should be able to leave reviews and ratings for books.
+   - [x] Users should be able to edit or delete their reviews.
 7. Admin Panel:
-   - [ ] The admin panel must provide insights into user activities and sales.
+   - [x] The admin panel must provide insights into user activities and sales.
    - [x] The admin panel must provide a way to manage book categories.
-   - [ ] The admin panel must provide a way to manage books.
-   - [ ] The admin panel must provide a way to manage orders.
+   - [x] The admin panel must provide a way to manage books.
+   - [x] The admin panel must provide a way to manage orders.
 8. Performance:
-    - [ ] The system must be able to handle a large number of active users.
-    - [ ] The system must be able to handle a large number of orders.
+   - [ ] The system must be able to handle a large number of active users.
+   - [ ] The system must be able to handle a large number of orders.
 9. Security and Privacy:
-    - [ ] The system must ensure the security and privacy of user data.
+   - [ ] The system must ensure the security and privacy of user data.
 10. Reliability and Testing:
     - [ ] The system must be highly reliable, ensuring minimal downtime and efficient error handling. 
     - [ ] All critical components of the system must be thoroughly tested through unit tests, integration tests. 

@@ -22,6 +22,9 @@ public class OrderInfo {
     @Column(name = "shipping_address", nullable = false)
     private String shippingAddress;
 
+    @Column(name = "status", nullable = false)
+    private OrderStatus status;
+
     @Column(name = "delivered_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deliveredAt;
@@ -91,6 +94,14 @@ public class OrderInfo {
         this.shippingAddress = shippingAddress;
     }
 
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
     public LocalDateTime getDeliveredAt() {
         return deliveredAt;
     }
@@ -130,19 +141,21 @@ public class OrderInfo {
         OrderInfo orderInfo = (OrderInfo) o;
         return Double.compare(totalPrice, orderInfo.totalPrice) == 0 && Objects.equals(id, orderInfo.id) &&
                Objects.equals(user, orderInfo.user) && Objects.equals(shippingAddress, orderInfo.shippingAddress) &&
-               Objects.equals(deliveredAt, orderInfo.deliveredAt) && Objects.equals(createdAt, orderInfo.createdAt) &&
-               Objects.equals(updatedAt, orderInfo.updatedAt) && Objects.equals(deletedAt, orderInfo.deletedAt);
+               status == orderInfo.status && Objects.equals(deliveredAt, orderInfo.deliveredAt) &&
+               Objects.equals(createdAt, orderInfo.createdAt) && Objects.equals(updatedAt, orderInfo.updatedAt) &&
+               Objects.equals(deletedAt, orderInfo.deletedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, totalPrice, shippingAddress, deliveredAt, createdAt, updatedAt, deletedAt);
+        return Objects.hash(id, user, totalPrice, shippingAddress, status, deliveredAt, createdAt, updatedAt,
+                deletedAt);
     }
 
     @Override
     public String toString() {
         return "OrderInfo{" + "id=" + id + ", user=" + user + ", totalPrice=" + totalPrice + ", shippingAddress='" +
-               shippingAddress + '\'' + ", deliveredAt=" + deliveredAt + ", createdAt=" + createdAt + ", updatedAt=" +
-               updatedAt + ", deletedAt=" + deletedAt + '}';
+               shippingAddress + '\'' + ", status=" + status + ", deliveredAt=" + deliveredAt + ", createdAt=" +
+               createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + '}';
     }
 }

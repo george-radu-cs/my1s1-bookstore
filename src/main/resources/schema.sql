@@ -113,6 +113,9 @@ CREATE TABLE IF NOT EXISTS order_info
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES app_user (id)
 );
 
+ALTER TABLE order_info
+    ALTER COLUMN delivered_at DROP NOT NULL;
+
 CREATE TABLE IF NOT EXISTS order_item
 (
     id         bigserial NOT NULL,

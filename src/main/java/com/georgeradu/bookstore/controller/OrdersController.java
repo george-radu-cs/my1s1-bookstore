@@ -36,6 +36,8 @@ public class OrdersController {
             @ApiResponse(responseCode = "200", description = "Successfully made order"),
             @ApiResponse(responseCode = "400", description = "Invalid shipping address",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
+            @ApiResponse(responseCode = "409", description = "Shopping cart is empty",
+                    content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
             @ApiResponse(responseCode = "403", description = "Forbidden",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error",
@@ -47,6 +49,25 @@ public class OrdersController {
         return ResponseEntity.ok(new OrderInfoResponse(response));
     }
 
+    @PutMapping("/cancel-order/{orderId}")
+    @Operation(summary = "Cancel an order")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully cancelled order"),
+            @ApiResponse(responseCode = "400", description = "Invalid order id",
+                    content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden",
+                    content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
+            @ApiResponse(responseCode = "409", description = "Order is already delivered or cancelled",
+                    content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(schema = @Schema(implementation = SpringErrorResponse.class)))
+    })
+    public ResponseEntity<OrderInfoResponse> cancelOrder(@PathVariable Long orderId) {
+        var loggedUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var response = orderService.cancelOrder(loggedUser.getUsername(), orderId);
+        return ResponseEntity.ok(new OrderInfoResponse(response));
+    }
+
     @PutMapping("/deliver-order/{orderId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Mark an order as delivered")
@@ -55,6 +76,8 @@ public class OrdersController {
             @ApiResponse(responseCode = "400", description = "Invalid order id",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
             @ApiResponse(responseCode = "403", description = "Forbidden",
+                    content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
+            @ApiResponse(responseCode = "409", description = "Order is already delivered or cancelled",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = SpringErrorResponse.class))),
