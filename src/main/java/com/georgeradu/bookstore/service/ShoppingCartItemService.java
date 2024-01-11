@@ -72,4 +72,9 @@ public class ShoppingCartItemService {
 
         shoppingCartItemRepository.delete(shoppingCartItem);
     }
+
+    public void deleteAllUserShoppingCartItems(String userEmail) {
+        var user = userService.getUserByEmail(userEmail);
+        shoppingCartItemRepository.deleteAllByUserId(user.getId());
+    }
 }

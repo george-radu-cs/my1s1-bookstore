@@ -1,36 +1,48 @@
 package com.georgeradu.bookstore.dto;
 
-import com.georgeradu.bookstore.model.User;
+import com.georgeradu.bookstore.model.OrderInfo;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-public class FullOrderInfoResponse {
+public class OrderInfoResponse {
     private Long id;
-    private User user;
+    private Long userId;
     private double totalPrice;
     private String shippingAddres;
     private LocalDateTime deliveredAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<OrderItemResponse> orderItems;
 
-    public FullOrderInfoResponse() {
+    public OrderInfoResponse() {
     }
 
-    public FullOrderInfoResponse(
-            Long id, User user, double totalPrice, String shippingAddres, LocalDateTime deliveredAt,
-            LocalDateTime createdAt, LocalDateTime updatedAt, List<OrderItemResponse> orderItems
+    public OrderInfoResponse(
+            Long id, Long userId, double totalPrice, String shippingAddres, LocalDateTime deliveredAt,
+            LocalDateTime createdAt, LocalDateTime updatedAt
     ) {
         this.id = id;
-        this.user = user;
+        this.userId = userId;
         this.totalPrice = totalPrice;
         this.shippingAddres = shippingAddres;
         this.deliveredAt = deliveredAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.orderItems = orderItems;
+    }
+
+    public OrderInfoResponse(OrderInfo response) {
+        this.id = response.getId();
+        this.userId = response.getUser().getId();
+        this.totalPrice = response.getTotalPrice();
+        this.shippingAddres = response.getShippingAddress();
+        this.deliveredAt = response.getDeliveredAt();
+        this.createdAt = response.getCreatedAt();
+        this.updatedAt = response.getUpdatedAt();
+    }
+
+    public static List<OrderInfoResponse> fromList(List<OrderInfo> response) {
+        return response.stream().map(OrderInfoResponse::new).toList();
     }
 
     public Long getId() {
@@ -41,12 +53,12 @@ public class FullOrderInfoResponse {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public double getTotalPrice() {
@@ -89,34 +101,26 @@ public class FullOrderInfoResponse {
         this.updatedAt = updatedAt;
     }
 
-    public List<OrderItemResponse> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItemResponse> orderItems) {
-        this.orderItems = orderItems;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FullOrderInfoResponse that = (FullOrderInfoResponse) o;
+        OrderInfoResponse that = (OrderInfoResponse) o;
         return Double.compare(totalPrice, that.totalPrice) == 0 && Objects.equals(id, that.id) &&
-               Objects.equals(user, that.user) && Objects.equals(shippingAddres, that.shippingAddres) &&
+               Objects.equals(userId, that.userId) && Objects.equals(shippingAddres, that.shippingAddres) &&
                Objects.equals(deliveredAt, that.deliveredAt) && Objects.equals(createdAt, that.createdAt) &&
-               Objects.equals(updatedAt, that.updatedAt) && Objects.equals(orderItems, that.orderItems);
+               Objects.equals(updatedAt, that.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, totalPrice, shippingAddres, deliveredAt, createdAt, updatedAt, orderItems);
+        return Objects.hash(id, userId, totalPrice, shippingAddres, deliveredAt, createdAt, updatedAt);
     }
 
     @Override
     public String toString() {
-        return "FullOrderInfoResponse{" + "id=" + id + ", user=" + user + ", totalPrice=" + totalPrice +
+        return "OrderInfoResponse{" + "id=" + id + ", userId=" + userId + ", totalPrice=" + totalPrice +
                ", shippingAddres='" + shippingAddres + '\'' + ", deliveredAt=" + deliveredAt + ", createdAt=" +
-               createdAt + ", updatedAt=" + updatedAt + ", orderItems=" + orderItems + '}';
+               createdAt + ", updatedAt=" + updatedAt + '}';
     }
 }
