@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS book
     category_id      bigint       NOT NULL,
     created_at       timestamp    NOT NULL,
     updated_at       timestamp    NOT NULL,
-    deleted_at       timestamp             DEFAULT NULL,
+    deleted_at       timestamp DEFAULT NULL,
 
     PRIMARY KEY (id),
     CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES book_category (id)
@@ -82,30 +82,18 @@ CREATE TABLE IF NOT EXISTS book_review
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES app_user (id)
 );
 
-CREATE TABLE IF NOT EXISTS shopping_cart
+CREATE TABLE IF NOT EXISTS shopping_cart_item
 (
     id         bigserial NOT NULL,
     user_id    bigint    NOT NULL,
+    book_id    bigint    NOT NULL,
+    quantity   int       NOT NULL,
     created_at timestamp NOT NULL,
     updated_at timestamp NOT NULL,
     deleted_at timestamp DEFAULT NULL,
 
     PRIMARY KEY (id),
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES app_user (id)
-);
-
-CREATE TABLE IF NOT EXISTS shopping_cart_item
-(
-    id               bigserial NOT NULL,
-    shopping_cart_id bigint    NOT NULL,
-    book_id          bigint    NOT NULL,
-    quantity         int       NOT NULL,
-    created_at       timestamp NOT NULL,
-    updated_at       timestamp NOT NULL,
-    deleted_at       timestamp DEFAULT NULL,
-
-    PRIMARY KEY (id),
-    CONSTRAINT fk_shopping_cart_id FOREIGN KEY (shopping_cart_id) REFERENCES shopping_cart (id),
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES app_user (id),
     CONSTRAINT fk_book_id FOREIGN KEY (book_id) REFERENCES book (id)
 );
 

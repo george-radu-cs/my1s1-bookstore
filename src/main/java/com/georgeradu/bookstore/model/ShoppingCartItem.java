@@ -13,8 +13,8 @@ public class ShoppingCartItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "shopping_cart_id", referencedColumnName = "id")
-    private ShoppingCart shoppingCart;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
@@ -43,11 +43,11 @@ public class ShoppingCartItem {
     }
 
     public ShoppingCartItem(
-            Long id, ShoppingCart shoppingCart, Book book, int quantity, LocalDateTime createdAt,
-            LocalDateTime updatedAt, LocalDateTime deletedAt
+            Long id, User user, Book book, int quantity, LocalDateTime createdAt, LocalDateTime updatedAt,
+            LocalDateTime deletedAt
     ) {
         this.id = id;
-        this.shoppingCart = shoppingCart;
+        this.user = user;
         this.book = book;
         this.quantity = quantity;
         this.createdAt = createdAt;
@@ -63,12 +63,12 @@ public class ShoppingCartItem {
         this.id = id;
     }
 
-    public ShoppingCart getShoppingCart() {
-        return shoppingCart;
+    public User getUser() {
+        return user;
     }
 
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Book getBook() {
@@ -116,20 +116,19 @@ public class ShoppingCartItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ShoppingCartItem that = (ShoppingCartItem) o;
-        return quantity == that.quantity && Objects.equals(id, that.id) &&
-               Objects.equals(shoppingCart, that.shoppingCart) && Objects.equals(book, that.book) &&
-               Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) &&
-               Objects.equals(deletedAt, that.deletedAt);
+        return quantity == that.quantity && Objects.equals(id, that.id) && Objects.equals(user, that.user) &&
+               Objects.equals(book, that.book) && Objects.equals(createdAt, that.createdAt) &&
+               Objects.equals(updatedAt, that.updatedAt) && Objects.equals(deletedAt, that.deletedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, shoppingCart, book, quantity, createdAt, updatedAt, deletedAt);
+        return Objects.hash(id, user, book, quantity, createdAt, updatedAt, deletedAt);
     }
 
     @Override
     public String toString() {
-        return "ShoppingCartItem{" + "id=" + id + ", shoppingCart=" + shoppingCart + ", book=" + book + ", quantity=" +
-               quantity + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + '}';
+        return "ShoppingCartItem{" + "id=" + id + ", user=" + user + ", book=" + book + ", quantity=" + quantity +
+               ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + '}';
     }
 }
