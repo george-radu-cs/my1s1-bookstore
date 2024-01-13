@@ -11,20 +11,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class UserServiceTest {
+    private final static LocalDateTime NOW = LocalDateTime.now();
+
+    @MockBean
+    private Clock clock;
+    private Clock fixedClock;
     @MockBean
     private UserRepository userRepository;
     @Autowired
     private UserService userService;
 
     @BeforeEach
-    public void setUp() {}
+    public void setUp() {
+        fixedClock = Clock.fixed(NOW.toLocalDate().atStartOfDay().toInstant(Clock.systemDefaultZone().getZone().getRules().getOffset(NOW)), Clock.systemDefaultZone().getZone());
+        doReturn(fixedClock.instant()).when(clock).instant();
+        doReturn(fixedClock.getZone()).when(clock).getZone();
+    }
 
     @AfterEach
     void tearDown() {}
@@ -42,7 +53,7 @@ public class UserServiceTest {
             user.setEmail("emailValue");
             user.setPassword("passwordValue");
 
-            var timestamp = LocalDateTime.now();
+            var timestamp = LocalDateTime.now(clock);
             User savedUser = new User();
             savedUser.setId(1L);
             savedUser.setFirstName("firstNameValue");
@@ -96,7 +107,7 @@ public class UserServiceTest {
             user.setLastName("lastNameValue");
             user.setEmail("emailValue");
             user.setPassword("passwordValue");
-            var timestamp = LocalDateTime.now();
+            var timestamp = LocalDateTime.now(clock);
             user.setCreatedAt(timestamp);
             user.setUpdatedAt(timestamp);
 
@@ -119,7 +130,7 @@ public class UserServiceTest {
             user.setLastName("lastNameValue");
             user.setEmail("emailValue");
             user.setPassword("passwordValue");
-            var timestamp = LocalDateTime.now();
+            var timestamp = LocalDateTime.now(clock);
             user.setCreatedAt(timestamp);
             user.setUpdatedAt(timestamp);
 
@@ -144,7 +155,7 @@ public class UserServiceTest {
             user.setLastName("lastNameValue");
             user.setEmail("emailValue");
             user.setPassword("passwordValue");
-            var timestamp = LocalDateTime.now();
+            var timestamp = LocalDateTime.now(clock);
             user.setCreatedAt(timestamp);
             user.setUpdatedAt(timestamp);
 
@@ -167,7 +178,7 @@ public class UserServiceTest {
             user.setLastName("lastNameValue");
             user.setEmail("emailValue");
             user.setPassword("passwordValue");
-            var timestamp = LocalDateTime.now();
+            var timestamp = LocalDateTime.now(clock);
             user.setCreatedAt(timestamp);
             user.setUpdatedAt(timestamp);
 
