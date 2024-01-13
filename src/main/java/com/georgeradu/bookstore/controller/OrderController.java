@@ -23,10 +23,10 @@ import java.util.List;
 @RequestMapping("/order")
 @Validated
 @Tag(name = "Orders Controller", description = "Provides endpoints for orders")
-public class OrdersController {
+public class OrderController {
     private final OrderService orderService;
 
-    public OrdersController(OrderService orderService) {
+    public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
 
