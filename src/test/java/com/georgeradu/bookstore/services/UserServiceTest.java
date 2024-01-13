@@ -1,5 +1,6 @@
 package com.georgeradu.bookstore.services;
 
+import com.georgeradu.bookstore.exception.EntityNotFoundException;
 import com.georgeradu.bookstore.exception.UserAlreadyExistsException;
 import com.georgeradu.bookstore.model.User;
 import com.georgeradu.bookstore.model.UserRole;
@@ -79,6 +80,102 @@ public class UserServiceTest {
                     () -> userService.addUser(user));
             Assertions.assertEquals("Object: User with email " + user.getEmail() + " already exists",
                     actualException.getMessage());
+        }
+    }
+
+    @Nested
+    @DisplayName("Test getUser method")
+    class TestGetUser {
+        @Test
+        @DisplayName("Should return user when user exists")
+        void test_getUser_shouldReturnUserWhenUserExists() {
+            // Arrange
+            User user = new User();
+            user.setId(1L);
+            user.setFirstName("firstNameValue");
+            user.setLastName("lastNameValue");
+            user.setEmail("emailValue");
+            user.setPassword("passwordValue");
+            var timestamp = LocalDateTime.now();
+            user.setCreatedAt(timestamp);
+            user.setUpdatedAt(timestamp);
+
+            // Act
+            when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+
+            // Assert
+            User response = userService.getUser(user.getId());
+            Assertions.assertNotNull(response);
+            Assertions.assertEquals(user, response);
+        }
+
+        @Test
+        @DisplayName("Should throw EntityNotFoundException when user does not exist")
+        void test_getUser_shouldThrowEntityNotFoundExceptionWhenUserDoesNotExist() {
+            // Arrange
+            User user = new User();
+            user.setId(1L);
+            user.setFirstName("firstNameValue");
+            user.setLastName("lastNameValue");
+            user.setEmail("emailValue");
+            user.setPassword("passwordValue");
+            var timestamp = LocalDateTime.now();
+            user.setCreatedAt(timestamp);
+            user.setUpdatedAt(timestamp);
+
+            // Act
+            when(userRepository.findById(user.getId())).thenReturn(Optional.empty());
+
+            // Assert
+            Assertions.assertThrows(EntityNotFoundException.class, () -> userService.getUser(user.getId()));
+        }
+    }
+
+    @Nested
+    @DisplayName("Test getUserByEmail method")
+    class TestGetUserByEmail {
+        @Test
+        @DisplayName("Should return user when user exists")
+        void test_getUserByEmail_shouldReturnUserWhenUserExists() {
+            // Arrange
+            User user = new User();
+            user.setId(1L);
+            user.setFirstName("firstNameValue");
+            user.setLastName("lastNameValue");
+            user.setEmail("emailValue");
+            user.setPassword("passwordValue");
+            var timestamp = LocalDateTime.now();
+            user.setCreatedAt(timestamp);
+            user.setUpdatedAt(timestamp);
+
+            // Act
+            when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+
+            // Assert
+            User response = userService.getUserByEmail(user.getEmail());
+            Assertions.assertNotNull(response);
+            Assertions.assertEquals(user, response);
+        }
+
+        @Test
+        @DisplayName("Should throw EntityNotFoundException when user does not exist")
+        void test_getUserByEmail_shouldThrowEntityNotFoundExceptionWhenUserDoesNotExist() {
+            // Arrange
+            User user = new User();
+            user.setId(1L);
+            user.setFirstName("firstNameValue");
+            user.setLastName("lastNameValue");
+            user.setEmail("emailValue");
+            user.setPassword("passwordValue");
+            var timestamp = LocalDateTime.now();
+            user.setCreatedAt(timestamp);
+            user.setUpdatedAt(timestamp);
+
+            // Act
+            when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
+
+            // Assert
+            Assertions.assertThrows(EntityNotFoundException.class, () -> userService.getUserByEmail(user.getEmail()));
         }
     }
 }
