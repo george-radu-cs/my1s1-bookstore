@@ -52,6 +52,7 @@ public class UserControllerTest {
     @DisplayName("Test getCurrentUserInfo endpoint")
     class TestGetCurrentUserInfoEndpoint {
         @Test
+        @DisplayName("Should return current user info")
         @WithMockUser(username = "emailValue", roles = {"USER"})
         void test_getCurrentUserInfo_shouldReturnUserInfo() throws Exception {
             // Arrange
@@ -78,6 +79,7 @@ public class UserControllerTest {
     @DisplayName("Test adminGetUser endpoint")
     class TestAdminGetUserEndpoint {
         @Test
+        @DisplayName("Should return user info by id for admin")
         @WithMockUser(username = "emailValue", roles = {"ADMIN"})
         void test_adminGetUser_shouldReturnUserInfo() throws Exception {
             // Arrange
