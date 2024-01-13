@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(SpringExtension.class)
-public class OrdersController {
+public class OrderControllerTest {
     private final static LocalDateTime NOW = LocalDateTime.now();
 
     @MockBean
