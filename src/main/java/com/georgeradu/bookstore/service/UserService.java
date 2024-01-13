@@ -6,13 +6,16 @@ import com.georgeradu.bookstore.model.User;
 import com.georgeradu.bookstore.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 @Service
 public class UserService {
+    private final Clock clock;
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(Clock clock, UserRepository userRepository) {
+        this.clock = clock;
         this.userRepository = userRepository;
     }
 
@@ -29,7 +32,7 @@ public class UserService {
     }
 
     public User addUser(User user) throws UserAlreadyExistsException {
-        var timestamp = LocalDateTime.now();
+        var timestamp = LocalDateTime.now(clock);
         user.setCreatedAt(timestamp);
         user.setUpdatedAt(timestamp);
 

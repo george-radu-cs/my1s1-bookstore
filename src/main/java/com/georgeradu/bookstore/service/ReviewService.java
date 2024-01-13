@@ -8,16 +8,21 @@ import com.georgeradu.bookstore.model.Review;
 import com.georgeradu.bookstore.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class ReviewService {
+    private final Clock clock;
     private final ReviewRepository reviewRepository;
     private final UserService userService;
     private final BookService bookService;
 
-    public ReviewService(ReviewRepository reviewRepository, UserService userService, BookService bookService) {
+    public ReviewService(
+            Clock clock, ReviewRepository reviewRepository, UserService userService, BookService bookService
+    ) {
+        this.clock = clock;
         this.reviewRepository = reviewRepository;
         this.userService = userService;
         this.bookService = bookService;
@@ -55,7 +60,7 @@ public class ReviewService {
         review.setUser(user);
         review.setRating(request.getRating());
         review.setComment(request.getComment());
-        var timestamp = LocalDateTime.now();
+        var timestamp = LocalDateTime.now(clock);
         review.setCreatedAt(timestamp);
         review.setUpdatedAt(timestamp);
 
@@ -72,7 +77,7 @@ public class ReviewService {
 
         review.setRating(request.getRating());
         review.setComment(request.getComment());
-        review.setUpdatedAt(LocalDateTime.now());
+        review.setUpdatedAt(LocalDateTime.now(clock));
 
         return reviewRepository.save(review);
     }

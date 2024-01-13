@@ -11,16 +11,19 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BookService {
+    private final Clock clock;
     private final BookRepository bookRepository;
     private final BookCategoryService bookCategoryService;
 
-    public BookService(BookRepository bookRepository, BookCategoryService bookCategoryService) {
+    public BookService(Clock clock, BookRepository bookRepository, BookCategoryService bookCategoryService) {
+        this.clock = clock;
         this.bookRepository = bookRepository;
         this.bookCategoryService = bookCategoryService;
     }
@@ -50,7 +53,7 @@ public class BookService {
 
         var book = new Book();
         createNewBook(request, bookCategory, book);
-        var timestamp = LocalDateTime.now();
+        var timestamp = LocalDateTime.now(clock);
         book.setCreatedAt(timestamp);
         book.setUpdatedAt(timestamp);
 
@@ -63,7 +66,7 @@ public class BookService {
         var bookCategory = bookCategoryService.getBookCategory(request.getBookCategoryId());
 
         createNewBook(request, bookCategory, book);
-        book.setUpdatedAt(LocalDateTime.now());
+        book.setUpdatedAt(LocalDateTime.now(clock));
 
         return bookRepository.save(book);
     }

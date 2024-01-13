@@ -7,19 +7,22 @@ import com.georgeradu.bookstore.model.ShoppingCartItem;
 import com.georgeradu.bookstore.repository.ShoppingCartItemRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class ShoppingCartItemService {
+    private final Clock clock;
     private final ShoppingCartItemRepository shoppingCartItemRepository;
     private final UserService userService;
     private final BookService bookService;
 
     public ShoppingCartItemService(
-            ShoppingCartItemRepository shoppingCartItemRepository, UserService userService,
+            Clock clock, ShoppingCartItemRepository shoppingCartItemRepository, UserService userService,
             BookService bookService
     ) {
+        this.clock = clock;
         this.shoppingCartItemRepository = shoppingCartItemRepository;
         this.userService = userService;
         this.bookService = bookService;
@@ -49,14 +52,16 @@ public class ShoppingCartItemService {
         shoppingCartItem.setUser(user);
         shoppingCartItem.setBook(book);
         shoppingCartItem.setQuantity(request.getQuantity());
-        var timestamp = LocalDateTime.now();
+        var timestamp = LocalDateTime.now(clock);
         shoppingCartItem.setCreatedAt(timestamp);
         shoppingCartItem.setUpdatedAt(timestamp);
 
         return shoppingCartItemRepository.save(shoppingCartItem);
     }
 
-    public ShoppingCartItem updateShoppingCartItem(String userEmail, Long shoppingCartItemId, ShoppingCartItemRequest request) {
+    public ShoppingCartItem updateShoppingCartItem(
+            String userEmail, Long shoppingCartItemId, ShoppingCartItemRequest request
+    ) {
         var user = userService.getUserByEmail(userEmail);
         var shoppingCartItem = shoppingCartItemRepository.findById(shoppingCartItemId).orElseThrow();
         if (!shoppingCartItem.getUser().getId().equals(user.getId())) {
@@ -65,7 +70,7 @@ public class ShoppingCartItemService {
         }
 
         shoppingCartItem.setQuantity(request.getQuantity());
-        shoppingCartItem.setUpdatedAt(LocalDateTime.now());
+        shoppingCartItem.setUpdatedAt(LocalDateTime.now(clock));
         return shoppingCartItemRepository.save(shoppingCartItem);
     }
 

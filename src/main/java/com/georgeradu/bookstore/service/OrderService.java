@@ -11,11 +11,13 @@ import com.georgeradu.bookstore.repository.OrderItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class OrderService {
+    private final Clock clock;
     private final ShoppingCartItemService shoppingCartItemService;
     private final UserService userService;
     private final BookService bookService;
@@ -23,10 +25,11 @@ public class OrderService {
     private final OrderItemRepository orderItemRepository;
 
     public OrderService(
-            ShoppingCartItemService shoppingCartItemService, UserService userService,
+            Clock clock, ShoppingCartItemService shoppingCartItemService, UserService userService,
             BookService bookService, OrderInfoRespository orderInfoRespository,
             OrderItemRepository orderItemRepository
     ) {
+        this.clock = clock;
         this.shoppingCartItemService = shoppingCartItemService;
         this.userService = userService;
         this.bookService = bookService;
@@ -82,14 +85,17 @@ public class OrderService {
             throw new EntityNotFoundException("Shopping cart is empty");
         }
 
-        var totalPrice = shoppingCartItems.stream().mapToDouble(item -> item.getBook().getPrice() * item.getQuantity()).sum();
+        var totalPrice = shoppingCartItems
+                .stream()
+                .mapToDouble(item -> item.getBook().getPrice() * item.getQuantity())
+                .sum();
 
         var orderInfo = new OrderInfo();
         orderInfo.setUser(user);
         orderInfo.setTotalPrice(totalPrice);
         orderInfo.setShippingAddress(shippingAddress);
         orderInfo.setStatus(OrderStatus.PENDING);
-        var timestamp = LocalDateTime.now();
+        var timestamp = LocalDateTime.now(clock);
         orderInfo.setCreatedAt(timestamp);
         orderInfo.setUpdatedAt(timestamp);
 
@@ -114,13 +120,14 @@ public class OrderService {
     public OrderInfo setOrderToBeDelivered(Long id) {
         var orderInfo = getOrderInfoById(id);
         if (orderInfo.getStatus() == OrderStatus.CANCELLED) {
-            throw new IllegalEntityStateException("Cannot deliver order " + id + " because it has already been cancelled");
+            throw new IllegalEntityStateException(
+                    "Cannot deliver order " + id + " because it has already been cancelled");
         }
         if (orderInfo.getStatus() == OrderStatus.DELIVERED) {
             throw new IllegalEntityStateException("Order " + id + " has already been delivered");
         }
 
-        orderInfo.setDeliveredAt(LocalDateTime.now());
+        orderInfo.setDeliveredAt(LocalDateTime.now(clock));
         orderInfo.setStatus(OrderStatus.DELIVERED);
         return orderInfoRespository.save(orderInfo);
     }
@@ -133,13 +140,14 @@ public class OrderService {
                     "User " + user.getId() + " cannot cancel order " + orderInfo.getId());
         }
         if (orderInfo.getStatus() == OrderStatus.DELIVERED) {
-            throw new IllegalEntityStateException("Cannot cancel order " + id + " because it has already been delivered");
+            throw new IllegalEntityStateException(
+                    "Cannot cancel order " + id + " because it has already been delivered");
         }
         if (orderInfo.getStatus() == OrderStatus.CANCELLED) {
             throw new IllegalEntityStateException("Order " + id + " has already been cancelled");
         }
 
-        orderInfo.setDeletedAt(LocalDateTime.now());
+        orderInfo.setDeletedAt(LocalDateTime.now(clock));
         orderInfo.setStatus(OrderStatus.CANCELLED);
         return orderInfoRespository.save(orderInfo);
     }

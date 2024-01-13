@@ -7,14 +7,17 @@ import com.georgeradu.bookstore.model.BookCategory;
 import com.georgeradu.bookstore.repository.BookCategoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class BookCategoryService {
+    private final Clock clock;
     private final BookCategoryRepository bookCategoryRepository;
 
-    public BookCategoryService(BookCategoryRepository bookCategoryRepository) {
+    public BookCategoryService(Clock clock, BookCategoryRepository bookCategoryRepository) {
+        this.clock = clock;
         this.bookCategoryRepository = bookCategoryRepository;
     }
 
@@ -37,7 +40,7 @@ public class BookCategoryService {
         var bookCategory = new BookCategory();
         bookCategory.setName(request.getName());
         bookCategory.setDescription(request.getDescription());
-        var timestamp = LocalDateTime.now();
+        var timestamp = LocalDateTime.now(clock);
         bookCategory.setCreatedAt(timestamp);
         bookCategory.setUpdatedAt(timestamp);
 
@@ -53,7 +56,7 @@ public class BookCategoryService {
         }
         bookCategory.setName(request.getName());
         bookCategory.setDescription(request.getDescription());
-        bookCategory.setUpdatedAt(LocalDateTime.now());
+        bookCategory.setUpdatedAt(LocalDateTime.now(clock));
 
         return bookCategoryRepository.save(bookCategory);
     }
