@@ -21,13 +21,13 @@ public class OrderInfoResponse {
     }
 
     public OrderInfoResponse(
-            Long id, Long userId, double totalPrice, String shippingAddres, OrderStatus status,
+            Long id, Long userId, double totalPrice, String shippingAddress, OrderStatus status,
             LocalDateTime deliveredAt, LocalDateTime createdAt, LocalDateTime updatedAt
     ) {
         this.id = id;
         this.userId = userId;
         this.totalPrice = totalPrice;
-        this.shippingAddress = shippingAddres;
+        this.shippingAddress = shippingAddress;
         this.status = status;
         this.deliveredAt = deliveredAt;
         this.createdAt = createdAt;

@@ -49,13 +49,14 @@ public class OrderInfo {
     }
 
     public OrderInfo(
-            Long id, User user, double totalPrice, String shippingAddress, LocalDateTime deliveredAt,
-            LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt
+            Long id, User user, double totalPrice, String shippingAddress, OrderStatus orderStatus,
+            LocalDateTime deliveredAt, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt
     ) {
         this.id = id;
         this.user = user;
         this.totalPrice = totalPrice;
         this.shippingAddress = shippingAddress;
+        this.status = orderStatus;
         this.deliveredAt = deliveredAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;

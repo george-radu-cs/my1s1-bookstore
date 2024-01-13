@@ -57,18 +57,18 @@ public class ShoppingCartControllerTest {
 
         user = new User(1L, "firstNameValue", "lastNameValue", "emailValue", "passwordValue", UserRole.ROLE_USER,
                 LocalDateTime.now(clock), LocalDateTime.now(clock), null);
-        var bookCategory = new BookCategory(1L, "nameValue1", "descriptionValue1",
+        var bookCategory = new BookCategory(1L, "nameValue1", "descriptionValue1", LocalDateTime.now(clock),
+                LocalDateTime.now(clock), null);
+        book1 = new Book(1L, "titleValue1", "authorValue1", "descriptionValue1", 1, "imageUrl1", 1, "language1",
+                "publisher1", LocalDateTime.now(clock), "isbn101", "isbn131", "dimensions1", 0, bookCategory,
                 LocalDateTime.now(clock), LocalDateTime.now(clock), null);
-        book1 = new Book(1L, "titleValue1", "authorValue1", "descriptionValue1", 1, "imageUrl1",
-                1, "language1", "publisher1", LocalDateTime.now(clock), "isbn101", "isbn131", "dimensions1", 0,
-                bookCategory, LocalDateTime.now(clock), LocalDateTime.now(clock), null);
-        book2 = new Book(2L, "titleValue2", "authorValue2", "descriptionValue2", 2, "imageUrl2",
-                2, "language2", "publisher2", LocalDateTime.now(clock), "isbn102", "isbn132", "dimensions2", 0,
-                bookCategory, LocalDateTime.now(clock), LocalDateTime.now(clock), null);
-        shoppingCartItem1 = new ShoppingCartItem(1L, user, book1, 1, LocalDateTime.now(clock),
-                LocalDateTime.now(clock), null);
-        shoppingCartItem2 = new ShoppingCartItem(2L, user, book2, 2, LocalDateTime.now(clock),
-                LocalDateTime.now(clock), null);
+        book2 = new Book(2L, "titleValue2", "authorValue2", "descriptionValue2", 2, "imageUrl2", 2, "language2",
+                "publisher2", LocalDateTime.now(clock), "isbn102", "isbn132", "dimensions2", 0, bookCategory,
+                LocalDateTime.now(clock), LocalDateTime.now(clock), null);
+        shoppingCartItem1 = new ShoppingCartItem(1L, user, book1, 1, LocalDateTime.now(clock), LocalDateTime.now(clock),
+                null);
+        shoppingCartItem2 = new ShoppingCartItem(2L, user, book2, 2, LocalDateTime.now(clock), LocalDateTime.now(clock),
+                null);
         shoppingCartItemResponse1 = new ShoppingCartItemResponse(1L, 1L, 1L, 1);
         shoppingCartItemResponse2 = new ShoppingCartItemResponse(2L, 1L, 2L, 2);
     }
@@ -90,9 +90,7 @@ public class ShoppingCartControllerTest {
                     List.of(shoppingCartItem1, shoppingCartItem2));
 
             // Assert
-            var actualResult = mockMvc.perform(get("/shopping-cart"))
-                                      .andExpect(status().isOk())
-                                      .andReturn();
+            var actualResult = mockMvc.perform(get("/shopping-cart")).andExpect(status().isOk()).andReturn();
 
             Assertions.assertEquals(
                     objectMapper.writeValueAsString(List.of(shoppingCartItemResponse1, shoppingCartItemResponse2)),
@@ -114,9 +112,10 @@ public class ShoppingCartControllerTest {
                     List.of(shoppingCartItem1, shoppingCartItem2));
 
             // Assert
-            var actualResult = mockMvc.perform(get("/shopping-cart/{userId}", user.getId()))
-                                      .andExpect(status().isOk())
-                                      .andReturn();
+            var actualResult = mockMvc
+                    .perform(get("/shopping-cart/{userId}", user.getId()))
+                    .andExpect(status().isOk())
+                    .andReturn();
 
             Assertions.assertEquals(
                     objectMapper.writeValueAsString(List.of(shoppingCartItemResponse1, shoppingCartItemResponse2)),
@@ -139,14 +138,14 @@ public class ShoppingCartControllerTest {
                     shoppingCartItem1);
 
             // Assert
-            var actualResult = mockMvc.perform(post("/shopping-cart")
-                                              .contentType("application/json")
-                                              .content(objectMapper.writeValueAsString(shoppingCartItemRequest)))
-                                      .andExpect(status().isOk())
-                                      .andReturn();
+            var actualResult = mockMvc
+                    .perform(post("/shopping-cart")
+                            .contentType("application/json")
+                            .content(objectMapper.writeValueAsString(shoppingCartItemRequest)))
+                    .andExpect(status().isOk())
+                    .andReturn();
 
-            Assertions.assertEquals(
-                    objectMapper.writeValueAsString(shoppingCartItemResponse1),
+            Assertions.assertEquals(objectMapper.writeValueAsString(shoppingCartItemResponse1),
                     actualResult.getResponse().getContentAsString());
         }
     }
@@ -166,14 +165,14 @@ public class ShoppingCartControllerTest {
                     shoppingCartItem1);
 
             // Assert
-            var actualResult = mockMvc.perform(put("/shopping-cart/{shoppingCartItemId}", 1L)
-                                              .contentType("application/json")
-                                              .content(objectMapper.writeValueAsString(shoppingCartItemRequest)))
-                                      .andExpect(status().isOk())
-                                      .andReturn();
+            var actualResult = mockMvc
+                    .perform(put("/shopping-cart/{shoppingCartItemId}", 1L)
+                            .contentType("application/json")
+                            .content(objectMapper.writeValueAsString(shoppingCartItemRequest)))
+                    .andExpect(status().isOk())
+                    .andReturn();
 
-            Assertions.assertEquals(
-                    objectMapper.writeValueAsString(shoppingCartItemResponse1),
+            Assertions.assertEquals(objectMapper.writeValueAsString(shoppingCartItemResponse1),
                     actualResult.getResponse().getContentAsString());
         }
     }
@@ -191,9 +190,7 @@ public class ShoppingCartControllerTest {
             doNothing().when(shoppingCartItemService).deleteShoppingCartItem("emailValue", 1L);
 
             // Assert
-            mockMvc.perform(delete("/shopping-cart/{shoppingCartItemId}", 1L))
-                   .andExpect(status().isOk())
-                   .andReturn();
+            mockMvc.perform(delete("/shopping-cart/{shoppingCartItemId}", 1L)).andExpect(status().isOk()).andReturn();
         }
     }
 }
