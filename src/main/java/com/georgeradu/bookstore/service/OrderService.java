@@ -6,7 +6,7 @@ import com.georgeradu.bookstore.exception.InvalidUserAccessException;
 import com.georgeradu.bookstore.model.OrderInfo;
 import com.georgeradu.bookstore.model.OrderItem;
 import com.georgeradu.bookstore.model.OrderStatus;
-import com.georgeradu.bookstore.repository.OrderInfoRespository;
+import com.georgeradu.bookstore.repository.OrderInfoRepository;
 import com.georgeradu.bookstore.repository.OrderItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -21,12 +21,12 @@ public class OrderService {
     private final ShoppingCartItemService shoppingCartItemService;
     private final UserService userService;
     private final BookService bookService;
-    private final OrderInfoRespository orderInfoRespository;
+    private final OrderInfoRepository orderInfoRespository;
     private final OrderItemRepository orderItemRepository;
 
     public OrderService(
             Clock clock, ShoppingCartItemService shoppingCartItemService, UserService userService,
-            BookService bookService, OrderInfoRespository orderInfoRespository,
+            BookService bookService, OrderInfoRepository orderInfoRespository,
             OrderItemRepository orderItemRepository
     ) {
         this.clock = clock;
