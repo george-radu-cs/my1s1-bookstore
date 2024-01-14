@@ -38,14 +38,14 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
    - [x] The admin panel must provide a way to manage books.
    - [x] The admin panel must provide a way to manage orders.
 8. Performance:
-   - [ ] The system must be able to handle a large number of active users.
-   - [ ] The system must be able to handle a large number of orders.
+   - [x] The system must be able to handle a large number of active users.
+   - [x] The system must be able to handle a large number of orders.
 9. Security and Privacy:
-   - [ ] The system must ensure the security and privacy of user data.
+   - [x] The system must ensure the security and privacy of user data.
 10. Reliability and Testing:
-    - [ ] The system must be highly reliable, ensuring minimal downtime and efficient error handling. 
-    - [ ] All critical components of the system must be thoroughly tested through unit tests, integration tests. 
-    - [ ] Test coverage should be maintained at a minimum of 90% for core functionalities. 
+   - [x] The system must be highly reliable, ensuring minimal downtime and efficient error handling. 
+   - [x] All critical components of the system must be thoroughly tested through unit tests, integration tests. 
+   - [x] Test coverage should be maintained at a minimum of 90% for core functionalities. 
 
 ## MVP Features Document
 
