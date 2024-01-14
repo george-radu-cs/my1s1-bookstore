@@ -99,7 +99,7 @@ public class OrderControllerTest {
             var shippingAddress = "shippingAddressValue";
 
             // Act
-            when(orderService.saveUserShoppinCartAsOrder("emailValue", shippingAddress)).thenReturn(orderInfo);
+            when(orderService.saveUserShoppingCartAsOrder("emailValue", shippingAddress)).thenReturn(orderInfo);
 
             // Assert
             MvcResult actualResult = mockMvc

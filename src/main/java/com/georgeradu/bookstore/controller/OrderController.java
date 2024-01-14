@@ -45,7 +45,7 @@ public class OrderController {
     })
     public ResponseEntity<OrderInfoResponse> makeOrderFromShoppingCart(@RequestParam String shippingAddress) {
         var loggedUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var response = orderService.saveUserShoppinCartAsOrder(loggedUser.getUsername(), shippingAddress);
+        var response = orderService.saveUserShoppingCartAsOrder(loggedUser.getUsername(), shippingAddress);
         return ResponseEntity.ok(new OrderInfoResponse(response));
     }
 

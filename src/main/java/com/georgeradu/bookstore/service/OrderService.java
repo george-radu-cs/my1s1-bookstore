@@ -78,7 +78,7 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderInfo saveUserShoppinCartAsOrder(String userEmail, String shippingAddress) {
+    public OrderInfo saveUserShoppingCartAsOrder(String userEmail, String shippingAddress) {
         var user = userService.getUserByEmail(userEmail);
         var shoppingCartItems = shoppingCartItemService.getUserShoppingCartByEmail(userEmail);
         if (shoppingCartItems.isEmpty()) {
