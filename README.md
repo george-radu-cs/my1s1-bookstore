@@ -43,9 +43,9 @@ Check [here](http://localhost:8080/swagger-ui/index.html#/)
 9. Security and Privacy:
    - [x] The system must ensure the security and privacy of user data.
 10. Reliability and Testing:
-   - [x] The system must be highly reliable, ensuring minimal downtime and efficient error handling. 
-   - [x] All critical components of the system must be thoroughly tested through unit tests, integration tests. 
-   - [x] Test coverage should be maintained at a minimum of 90% for core functionalities. 
+    - [x] The system must be highly reliable, ensuring minimal downtime and efficient error handling. 
+    - [x] All critical components of the system must be thoroughly tested through unit tests, integration tests. 
+    - [x] Test coverage should be maintained at a minimum of 90% for core functionalities. 
 
 ## MVP Features Document
 
